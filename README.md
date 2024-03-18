@@ -1,5 +1,5 @@
+# Containers and Cloud
 > [!NOTE]
-> # Containers and Cloud
 > The main goal of the "Containers and Cloud" course is to familiarize students with the best practices for *`creating containers with Docker`* and their subsequent *`deployment on Cloud infrastructure`*.
 > * It will go through the necessary *`Linux Shell commands`*, participants will learn how to work with *`Docker Compose`* to create containers.
 > * It will look in detail at what Cloud infrastructure is and how it can be managed with code.
@@ -7,8 +7,8 @@
 
 ----
 
+# Software Engineering and DevOps
 > [!NOTE]
-> # Software Engineering and DevOps
 > The main objective of the course "Software Engineering and DevOps" is to introduce the *`key terms`* and *`methodologies`* for a comprehensive understanding of software engineering and DevOps. The course will cover methods and tools for
 > * working in a team environment
 > * creating
