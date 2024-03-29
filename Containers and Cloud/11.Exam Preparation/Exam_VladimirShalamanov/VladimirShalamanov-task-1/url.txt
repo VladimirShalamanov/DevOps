@@ -1,0 +1,3 @@
+Default domain:
+
+readinglistvladi.azurewebsites.net
