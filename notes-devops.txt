@@ -1,0 +1,98 @@
+‼️Виж да не ти е с https връзката към локалхост в графана
+Трябва да е http
+
+_______________________________
+
+❎prepExam-2 (Task-1)
+‼️Inspect the APP file (‼️Connection String‼️)
+
+‼️First create Dockerfile, After that build images
+docker build -t goals-backend .
+docker build -t goals-frontend .
+
+=> if described database
+docker pull nameOfdb
+
+{1}
+‼️Check the Networks and Volumes first
+docker run -d --name mongodb --network goals -e MONGO_INITDB_ROOT_USERNAME=max -e MONGO_INITDB_ROOT_PASSWORD=secret -v data:/data/db mongo
+{2}
+docker run -d --name backend --network goals -p 80:80 -v logs:/logs -v node_modules:/node_modules goals-backend
+{3}
+‼️terminal is on general folder of the app, because we have src
+docker run -d --name frontend --network goals -p 3000:3000 -v .\frontend\src:/src goals-frontend
+
+AFTER compleate all containers INSPECT the network
+
+❎for network
+docker network ls
+docker inspect nameOfNetwork
+docker network create nameOfNetwork
+
+docker context ls
+
+❎for volume
+docker volume ls
+docker volume create nameOfVolume
+
+❎for DockerHub
+docker login
+docker tag NameOfImage vladimirshalamanov/NameOfImage
+docker push vladimirshalamanov/NameOfImage
+
+❎Run docker-compose.yml
+‼docker to docker compose (CLI commands) - ({1}copy ALL-then{2}&{3}only services)-(many cmds, only changes services)
+‼️set services: image: nameOfImage => vladimirshalamanov/NameOfImage, if you HAVE pushed image to DockerHub
+‼️Before you do anything, you should check the docker because we will have duplicate images "vladimirshalamanov/NameOfImage"
+*build context:
+build:
+  dockerfile: ./the/location/of/Dockerfile
+
+*restart policy:
+restart: on-failure
+
+domainname: vladimirshalamanov
+
+*deployment configuration:
+deploy:
+  resources:
+    reservations:
+      cpus: '2'
+      memory: 2GB
+
+docker compose build
+docker compose up -d
+
+❎Destroy docker-compose volumes
+docker compose down --volumes
+
+_______________________________
+❎Terraform
+terraform init
+terraform fmt
+terraform validate
+terraform plan -var-file='values.tfvars'
+terraform apply -var-file='values.tfvars'
+terraform destroy -var-file='values.tfvars'
+
+_______________________________
+❎ASP.NET
+If you have a ASP.NET app [.web] => [add] => [Docker support] => [Linux]
+	INSPECT docker file data
+	VIEW docker file location
+docker build -t NameOfWebFolder .
+
+‼Create the Volumes and Network, if you dont't have
+‼network - nameOfApp. The --name of the Network SHOULD be same as ("DefaultConnection": Server=NameOfsqlserver)
+
+docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=yourStrongPassword12# -p 1433:1433 -v sqldata:/var/opt/mssql --network taskboard --name sqlserver -d mcr.microsoft.com/mssql/server
+
+docker run -p 5000:80 --rm -name web_app --network taskboard -d taskboard
+
+docker run -d --name vote --network frontend -p 5000:80 -v vote:/app vote
+docker run -d --name result --network frontend -p 5001:80 -v result:/app result
+
+docker run -d --name worker --network backend worker
+docker run -d --name redis --network backend redis
+docker run -d --name db --network backend -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -v db:/var/lib/postgresql/data postgres
+_______________________________
